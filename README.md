@@ -1,6 +1,6 @@
 # Mini Painel de Controle de Vendas 📊
 
-Este é um projeto que desenvolvi para explorar a criação de dashboards interativos utilizando Python, pandas, Plotly e Streamlit. O objetivo é fornecer uma ferramenta intuitiva para visualizar e analisar dados de vendas com filtros dinâmicos.
+Este projeto foi desenvolvido como parte de um desafio técnico para criar um dashboard interativo de vendas utilizando dados da base **AdventureWorks**. O objetivo é fornecer uma ferramenta que permita aos usuários filtrar e visualizar informações detalhadas sobre as vendas, como data do pedido, valor da venda, região de envio e produtos.
 
 ## Sumário
 
@@ -9,12 +9,14 @@ Este é um projeto que desenvolvi para explorar a criação de dashboards intera
 - [Demonstração](#demonstração)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Como Executar o Projeto](#como-executar-o-projeto)
+- [Query SQL](#query-sql)
 - [Detalhes Técnicos Importantes](#detalhes-técnicos-importantes)
-
 
 ## Descrição
 
-Este painel permite que os usuários filtrem dados de vendas por ano, mês, país, estado, cidade e produto. Com isso, é possível visualizar:
+Este painel permite que os usuários filtrem dados de vendas por ano, mês, país, estado, cidade e produto. As informações são obtidas a partir de um arquivo **CSV** que contém os dados extraídos da base **AdventureWorks**. A conexão com o banco de dados foi utilizada para realizar a extração dos dados, porém, para este projeto, eles foram salvos no formato **CSV** para facilitar o desenvolvimento e execução sem a necessidade de uma conexão direta com o banco de dados.
+
+Além disso, o painel exibe:
 
 - **Total de Vendas**: Exibe o total de vendas no período selecionado.
 - **Gráfico de Barras**: Mostra as vendas por produto.
@@ -38,6 +40,7 @@ Você pode acessar a versão implementada do painel através do link abaixo:
 - **Pandas**: Manipulação e análise de dados.
 - **Plotly Express**: Criação de gráficos interativos.
 - **Streamlit**: Construção da interface web interativa do painel.
+- **SQL Server**: Utilizado para a extração de dados da base AdventureWorks.
 
 ## Como Executar o Projeto
 
@@ -46,7 +49,7 @@ Você pode acessar a versão implementada do painel através do link abaixo:
 - Python 3.x instalado.
 - Instalar as bibliotecas necessárias:
   ```bash
-  pip install pandas plotly streamlit
+  pip install pandas plotly streamlit pyodbc
   ```
 
 ### Passos para Execução
@@ -59,39 +62,79 @@ Você pode acessar a versão implementada do painel através do link abaixo:
    ```bash
    cd seu-repositorio
    ```
-3. **Execute o aplicativo Streamlit**:
+3. **Utilização do CSV**:
+   - Os dados de vendas foram salvos em um arquivo CSV localizado no repositório, o qual é carregado diretamente para o painel:
+   ```python
+   url = "https://raw.githubusercontent.com/seu-usuario/seu-repositorio/master/vendas.csv"
+   df = pd.read_csv(url)
+   ```
+
+4. **Execute o aplicativo Streamlit**:
    ```bash
    streamlit run app.py
    ```
-   *Substitua `app.py` pelo nome do arquivo Python contendo o código.*
 
-4. **Acesse o painel**:
+5. **Acesse o painel**:
    Abra o navegador e vá para `http://localhost:8501` (ou o endereço fornecido pelo Streamlit).
+
+## Query SQL
+
+Aqui está a query que foi utilizada para coletar os dados do banco **AdventureWorks**, antes de serem salvos no arquivo CSV:
+
+```sql
+SELECT
+    -- Informações do pedido
+    FORMAT(soh.OrderDate, 'dd/MM/yyyy') AS Data_Pedido,     -- Data do pedido formatada (dd/mm/yyyy)
+    FORMAT(sod.LineTotal, 'N', 'pt-BR') AS ValorVenda,      -- Valor da venda formatado no padrão brasileiro
+
+    -- Informações de envio
+    addr.City AS Cidade,                                    
+    sp.Name AS Estado,                                      
+    cr.Name AS Pais,                                        
+
+    -- Informações do produto
+    prod.Name AS NomeProduto                                
+
+FROM
+    Sales.SalesOrderHeader AS soh                           
+
+-- do pedido
+INNER JOIN Sales.SalesOrderDetail AS sod 
+    ON soh.SalesOrderID = sod.SalesOrderID                  
+
+-- os produtos
+INNER JOIN Production.Product AS prod 
+    ON sod.ProductID = prod.ProductID                       
+
+-- endereço de envio
+INNER JOIN Person.Address AS addr 
+    ON soh.ShipToAddressID = addr.AddressID                 
+
+-- estado
+INNER JOIN Person.StateProvince AS sp 
+    ON addr.StateProvinceID = sp.StateProvinceID            
+
+-- país
+INNER JOIN Person.CountryRegion AS cr 
+    ON sp.CountryRegionCode = cr.CountryRegionCode;
+```
+
+## Fluxograma da Query
+
+Fluxograma lógico da query :
+
+![image](https://github.com/user-attachments/assets/69fba4de-0d18-427e-a4cc-87fe4da4b9cf)
+
 
 ## Detalhes Técnicos Importantes
 
 - **Carregamento dos Dados**:
-  - Os dados de vendas são carregados diretamente de um arquivo CSV hospedado no GitHub:
-    ```python
-    url = "https://raw.githubusercontent.com/jamessalmom/Mini-Painel-Sales/master/vendas.csv"
-    df = pd.read_csv(url)
-    ```
-  - Certifique-se de que o CSV está formatado corretamente e acessível.
+  - Os dados de vendas foram carregados a partir de um arquivo CSV, que foi extraído anteriormente do banco de dados **AdventureWorks** via uma conexão SQL Server.
+  - A query SQL foi otimizada para trazer as informações de data, valor de vendas, região de envio e produto.
 
 - **Processamento dos Dados**:
-  - Conversão de strings para datas:
-    ```python
-    df['Data_Pedido'] = pd.to_datetime(df['Data_Pedido'], format='%d/%m/%Y')
-    ```
-  - Formatação dos valores monetários para o padrão numérico:
-    ```python
-    df['ValorVenda'] = df['ValorVenda'].str.replace('.', '').str.replace(',', '.').astype(float)
-    ```
-  - Criação de colunas adicionais para facilitar os filtros:
-    ```python
-    df['Ano'] = df['Data_Pedido'].dt.year
-    df['Mes'] = df['Data_Pedido'].dt.strftime('%B')
-    ```
+  - Conversão de strings para datas e formatação dos valores monetários para o padrão decimal do BR.
+  - Criação de colunas adicionais no Frame para facilitar os filtros.
 
 - **Construção dos Filtros**:
   - Os filtros são implementados usando `st.sidebar.multiselect`, permitindo múltiplas seleções.
