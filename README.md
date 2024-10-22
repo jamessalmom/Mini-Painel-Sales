@@ -123,7 +123,7 @@ INNER JOIN Person.CountryRegion AS cr
 
 Fluxograma de relacionamento lógico da query:
 
-[fluxoL_BD_query.png](https://github.com/jamessalmom/Mini-Painel-Sales/blob/48fce1c60a99ca34768be52039c8d8c7495bd91d/fluxoL_BD_query.png)
+![image](https://github.com/user-attachments/assets/4dbea0ff-95c2-4991-acf9-90359c6c7bbd)
 
 ## Detalhes Técnicos Importantes
 
