@@ -132,7 +132,7 @@ Fluxograma de relacionamento lógico da query:
   - A query SQL foi otimizada para trazer as informações de data, valor de vendas, região de envio e produto.
 
 - **Processamento dos Dados**:
-  - Conversão de strings para datas e formatação dos valores monetários para o padrão decimal do BR.
+  - Conversão de strings para datas e formatação dos valores monetários para o padrão decimal do br.
   - Criação de colunas adicionais no Frame para facilitar os filtros.
 
 - **Construção dos Filtros**:
@@ -140,6 +140,6 @@ Fluxograma de relacionamento lógico da query:
   - A atualização dos filtros é encadeada; por exemplo, os estados disponíveis dependem do país selecionado.
 
 - **Visualizações**:
-  - **Total de Vendas**: Exibido usando `st.metric` com formatação personalizada para o padrão brasileiro.
+  - **Total de Vendas**: Exibido usando `st.metric` com formatação personalizada para o padrão br.
   - **Gráfico de Barras (Vendas por Produto)**: Criado com `px.bar` e exibido com `st.plotly_chart`.
   - **Gráfico de Linhas (Vendas ao Longo do Tempo)**: Criado com `px.line` para mostrar a tendência das vendas.
