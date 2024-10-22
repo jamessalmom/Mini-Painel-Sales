@@ -79,7 +79,7 @@ Você pode acessar a versão implementada do painel através do link abaixo:
 
 ## Query SQL
 
-Aqui está a query que foi utilizada para coletar os dados do banco **AdventureWorks**, antes de serem salvos no arquivo CSV:
+Aqui está a query que criei para coletar os dados do banco **AdventureWorks**, antes de serem salvos no arquivo CSV:
 
 ```sql
 SELECT
