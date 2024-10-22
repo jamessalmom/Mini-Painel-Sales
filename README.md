@@ -30,7 +30,7 @@ Além disso, o painel exibe:
 
 ## Demonstração
 
-Você pode acessar a versão implementada do painel através do link abaixo:
+Esta é a versão que implementei do painel diretamente no container do streamlit, conectada ao meu repositório do GitHub. O acesso pode ser feito através do link abaixo:
 
 [➡️ Acesse o Mini Painel de Controle de Vendas](https://mini-painel-sales-vrdgeurdhmcvvrczrjus9t.streamlit.app/)
 
