@@ -11,8 +11,12 @@ st.set_page_config(
 )
 
 # Input do CSV
-file_path = "E:/Projeto_new/vendas.csv"
-df = pd.read_csv(file_path)
+#file_path = "E:/Projeto_new/vendas.csv"
+#df = pd.read_csv(file_path)
+
+# Carregar o CSV diretamente da URL do GitHub
+url = "https://raw.githubusercontent.com/jamessalmom/Mini-Painel-Sales/master/vendas.csv"
+df = pd.read_csv(url)
 
 # Ajusta formato da data e do valor das vendas
 df['Data_Pedido'] = pd.to_datetime(df['Data_Pedido'], format='%d/%m/%Y')
