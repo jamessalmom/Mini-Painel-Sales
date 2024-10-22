@@ -1,6 +1,6 @@
 # Mini Painel de Controle de Vendas 📊
 
-Este projeto foi desenvolvido como parte de um desafio técnico para criar um dashboard interativo de vendas utilizando dados da base **AdventureWorks**. O objetivo é fornecer uma ferramenta que permita aos usuários filtrar e visualizar informações detalhadas sobre as vendas, como data do pedido, valor da venda, região de envio e produtos.
+Este projeto foi desenvolvido como parte de um desafio técnico para criar um dashboard interativo de vendas utilizando dados da base **AdventureWorks**. O objetivo é fornecer um painel que permita aos usuários filtrar e visualizar informações detalhadas sobre as vendas.
 
 ## Sumário
 
