@@ -96,7 +96,7 @@ def gerar_painel(df):
     if not df_filtrado.empty:
         vendas_por_data = df_filtrado.groupby('Data_Pedido')['ValorVenda'].sum().reset_index()
         fig_data = px.line(vendas_por_data, x='Data_Pedido', y='ValorVenda', 
-                           title="Vendas ao Longo do Tempo", labels={'ValorVenda': 'Vendas (R$)', 'Data_Pedido': 'Data'})
+                           title="Vendas ao Longo do Tempo", labels={'ValorVenda': 'Vendas ($)', 'Data_Pedido': 'Data'})
         st.plotly_chart(fig_data)
 
 # Gerar painel
