@@ -121,10 +121,9 @@ INNER JOIN Person.CountryRegion AS cr
 
 ## Fluxograma da Query
 
-Fluxograma lógico da query :
+Fluxograma de relacionamento lógico da query:
 
-![image](https://github.com/user-attachments/assets/69fba4de-0d18-427e-a4cc-87fe4da4b9cf)
-
+[fluxoL_BD_query.png](https://github.com/jamessalmom/Mini-Painel-Sales/blob/48fce1c60a99ca34768be52039c8d8c7495bd91d/fluxoL_BD_query.png)
 
 ## Detalhes Técnicos Importantes
 
