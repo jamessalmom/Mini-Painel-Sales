@@ -18,7 +18,7 @@ Este painel permite que os usuários filtrem dados de vendas por ano, mês, paí
 
 Além disso, o painel exibe:
 
-- **Total de Vendas**: Exibe o total de vendas no período selecionado.
+- **Total de Vendas**: KPI, com total de vendas no período selecionado.
 - **Gráfico de Barras**: Mostra as vendas por produto.
 - **Gráfico de Linhas**: Apresenta a evolução das vendas ao longo do tempo.
 
